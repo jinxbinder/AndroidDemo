@@ -1,0 +1,2 @@
+include ':example', ':latte-annotations', ':latte-compiler', ':latte-core', ':latte-ec'
+rootProject.name='FirstDemo'
