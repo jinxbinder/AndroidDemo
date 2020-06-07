@@ -9,7 +9,7 @@ public final class Latte {
         getConfigurations().put(ConfigType.APPLICATION_CONTEXT.name(), context.getApplicationContext());
         return Configurator.getInstance();
     }
-    private static WeakHashMap<String,Object> getConfigurations(){
+    public static WeakHashMap<String,Object> getConfigurations(){
         return Configurator.getInstance().getLatteConfigs();
     }
 }
