@@ -1,7 +1,10 @@
 package com.bin.latte_core.app;
 
 import java.security.PrivateKey;
+import java.util.ArrayList;
 import java.util.WeakHashMap;
+
+import okhttp3.Interceptor;
 
 /** 
  *  配置类
@@ -11,6 +14,8 @@ import java.util.WeakHashMap;
 
 public class Configurator {
     private static final WeakHashMap<String,Object> LATTE_CONFIGS = new WeakHashMap<>();
+//    private static final ArrayList<IconFontDescriptor> ICONS = new ArrayList<>();
+    private static final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();
 
     private Configurator(){
         LATTE_CONFIGS.put(ConfigType.CONFIG_READY.name(),false);
@@ -48,5 +53,17 @@ public class Configurator {
     final <T> T getConfiguration(Enum<ConfigType> key){
         checkConfiguration();
         return (T) LATTE_CONFIGS.get(key.name());
+    }
+
+    public final Configurator withInterceptor(Interceptor interceptor){
+        INTERCEPTORS.add(interceptor);
+        LATTE_CONFIGS.put(ConfigType.INTERCEPTOR.name(), INTERCEPTORS);
+        return this;
+    }
+
+    public final Configurator withInterceptors(ArrayList<Interceptor> interceptors){
+        INTERCEPTORS.addAll(interceptors);
+        LATTE_CONFIGS.put(ConfigType.INTERCEPTOR.name(), INTERCEPTORS);
+        return this;
     }
 }

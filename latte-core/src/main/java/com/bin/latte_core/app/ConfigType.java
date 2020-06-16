@@ -13,5 +13,7 @@ public enum ConfigType {
     //配置加载检验
     CONFIG_READY,
 
-    ICON
+    ICON,
+
+    INTERCEPTOR
 }

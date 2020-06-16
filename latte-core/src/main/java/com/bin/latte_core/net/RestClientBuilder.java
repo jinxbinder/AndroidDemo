@@ -10,6 +10,7 @@ import com.bin.latte_core.net.callback.IRequest;
 import com.bin.latte_core.net.callback.ISuccess;
 import com.bin.latte_core.ui.LoaderStyle;
 
+import java.io.File;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -25,12 +26,16 @@ public class RestClientBuilder {
     private String mUrl = null;
     private static final WeakHashMap<String,Object> PARAMS = RestCreator.getParams();
     private IRequest mIRequest = null;
+    private String mDownloadDir = null;
+    private String mExtension = null;
+    private String mName = null;
     private ISuccess mISuccess = null;
     private IFailure mIFailure = null;
     private IError mIError = null;
     private RequestBody mBody = null;
     private Context mContext = null;
     private LoaderStyle mLoaderStyle = null;
+    private File mFile = null;
 
     RestClientBuilder(){
 
@@ -43,6 +48,31 @@ public class RestClientBuilder {
 
     public final RestClientBuilder params(WeakHashMap<String,Object> params){
         PARAMS.putAll(params);
+        return this;
+    }
+
+    public final RestClientBuilder downloadDir(String dir){
+        this.mDownloadDir = dir;
+        return this;
+    }
+
+    public final RestClientBuilder extension(String extension){
+        this.mExtension = extension;
+        return this;
+    }
+
+    public final RestClientBuilder name(String name){
+        this.mName = name;
+        return this;
+    }
+
+    public final RestClientBuilder file(File file){
+        this.mFile = file;
+        return this;
+    }
+
+    public final RestClientBuilder file(String file){
+        this.mFile = new File(file);
         return this;
     }
 
@@ -89,8 +119,8 @@ public class RestClientBuilder {
     }
 
     public final RestClient build(){
-        return new RestClient(mUrl, PARAMS, mIRequest,
-                mISuccess, mIFailure, mIError, mBody,mContext,mLoaderStyle);
+        return new RestClient(mUrl, PARAMS, mIRequest,mDownloadDir,mExtension,mName,
+                mISuccess, mIFailure, mIError, mBody,mContext,mLoaderStyle,mFile);
     }
 
 }
